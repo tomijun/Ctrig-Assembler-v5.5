@@ -1,0 +1,9 @@
+[main]
+input: TestMap.scx
+output: TestMapT.scx
+
+[Ctrig Assembler v5.4]
+[Debug]
+
+[freeze]
+freeze: 0
