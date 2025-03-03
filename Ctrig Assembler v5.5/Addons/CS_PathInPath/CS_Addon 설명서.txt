@@ -1,0 +1,24 @@
+------ 구성 함수 목록 및 설명 (Tep v3.0) ---------
+
+CS_Slice(Path,Limit,SampleSize)
+: Path를 도형 단위로 자르는 함수 (ShapeInShape 리턴값에 적합)
+Path : 자를 Path 데이터
+Limit : 점 사이의 거리가 (평균 거리*Limit) 이상이면 서로 다른 도형으로 간주해서 자름
+SampleSize : 평균값에 포함시킬 앞뒤 선분의 갯수
+
+CS_PathInPath(Path,Number,funcN,PerSegment,Clamp,Closed)
+: Path를 재구성하는 함수 (경로를 유지하면서 Number개의 점을 찍음, 점 사이를 직선으로 보간함)
+Path : 재구성할 Path 데이터
+Number : Path에 찍을 점의 갯수
+funcN : 찍을 점의 간격 조정 함수 (nil 입력시 등간격으로 찍음) - Parameter = (index,Number,Path[1]), 리턴값 = 시작 위치로부터 길이 비율 (0.0~1.0)
+PerSegment : 1입력시 Path의 각 선분마다 PathInPath를 적용함, 총 찍히는 점의 수 (Path[1]-1)*Number개 (미사용시 0 입력)
+Clamp : 1입력시 찍을 점의 길이 비율값이 0.0~1.0을 벗어나면 %1.0을 적용함 (Cycle 효과), (미사용시 0 입력)
+Closed : 1입력시 도형을 폐곡선화 시킴 (끝점->시작점 선분을 연산에 추가함), (미사용시 0 입력)
+
+CS_PathInPathX(Path,Number,funcN,funcT,AreaT,StepNumber,Loop,PerSegment,Clamp,Closed)
+: Path를 재구성하는 함수 (PathInPath와 동일하나, 점 사이를 funcT로 보간함)
+funcT : 점 사이 보간시 사용할 함수 (x(t), y(t)인 2D 매개변수 함수) - Parameter = (t), 리턴값 = X, Y, (0,0)을 (X1,Y1)로, (1,0)을 (X2,Y2)로 설정함
+AreaT : funcT의 정의역, {tmin, tmax} 형식으로 입력
+StepNumber : 연산시 검사할 점의 갯수 (전수 조사 방식, 큰 수일수록 연산시간↑&정확도↑)
+Loop : 점의 좌표 세부 계산시 한 점당 연산 횟수 (미사용시 0 입력) 
+※ 나머지 항목은 모두 CS_PathInPath와 동일함

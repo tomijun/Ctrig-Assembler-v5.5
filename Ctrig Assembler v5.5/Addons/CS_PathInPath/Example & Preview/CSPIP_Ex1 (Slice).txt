@@ -1,0 +1,40 @@
+-- Example 1 (CS_Slice)
+
+SH1 = CSMakeCircleX(6,72,0,CS_Level("CircleX",6,4),CS_Level("CircleX",6,2)) -- 외곽 원
+SH2 = CSMakeCircleX(12,128,0,CS_Level("CircleX",12,1),0) -- 내곽 원
+SH3 = CS_Merge(SH1,SH2)
+SHA = CSMakePolygonX(3,28,0,CS_Level("PolygonX",3,5),CS_Level("PolygonX",3,4)) -- 큰 삼각형
+SHB = CSMakePolygonX(3,19,0,CS_Level("PolygonX",3,4),CS_Level("PolygonX",3,3)) -- 작은 삼각형
+SH_A = CS_RatioXY(SHA,nil,2) -- y축 2배 늘림, nil부분은 x축
+SH_B = CS_RatioXY(SHB,nil,2) -- 이거도 마찬가지
+SHLine = CSMakeLine(1,96,0,CS_Level("Line",1,7),CS_Level("Line",1,6)) -- ShapeInShape용 재료 1
+SHLine2 = CSMakeLine(1,96,0,CS_Level("Line",1,6),CS_Level("Line",1,5)) -- ShapeInShape용 재료 2
+SH_L = CS_ShapeInShape(SH_A,SHLine,0) -- 큰 직삼각형
+SH_LB = CS_ShapeInShape(SH_B,SHLine2,0) -- 작은 직삼각형
+SH_O = CS_Overlap(SH3,SH_L)
+SH_L1 = CS_Rotate(SH_L,90) -- 큰 직삼각형 90도 회전
+SH_L2 = CS_Rotate(SH_L,180) -- 큰 직삼각형 180도 회전
+SH_L3 = CS_Rotate(SH_L,270) -- 큰 직삼각형 270도 회전
+SH_LC = CS_OverlapX(SH_L,SH_L1,SH_L2,SH_L3,SH3) -- 12,3,6,9시 방향 직삼각형
+SH_LB1 = CS_Rotate(SH_LB,45) -- 작은 직삼각형 45도 회전
+SH_LB2 = CS_Rotate(SH_LB,135) -- 작은 직삼각형 135도 회전
+SH_LB3 = CS_Rotate(SH_LB,225) -- 작은 직삼각형 225도 회전
+SH_LB4 = CS_Rotate(SH_LB,315) -- 작은 직삼각형 315도 회전
+SH_LD = CS_OverlapX(SH_LB4,SH_LB1,SH_LB2,SH_LB3) -- 1,5,7,11시 방향 직삼각형
+SH_LE = CS_Overlap(SH_LC,SH_LD) -- 용기의 문장 완성품
+SH_LE = CS_RatioXY(SH_LE,1/2,1/2)
+
+SCHALE = CS_Slice(SH_LE,1.5,3)
+
+CList = {0x000000,0xFF0000,0x00FF00,0x0000FF,0xFFFF00,0xFF00FF,0x00FFFF,0x808080,
+		0x0080FF,0x8000FF,0x00FF80,0x80FF00,0xFF0080,0xFF8000,
+		0x6020C0,0x2060C0,0x20C060,0x60C020,0xC02060,0xC06020}
+
+CArr = {}
+for i = 1, #SCHALE do
+	for j = 1, SCHALE[i][1] do
+		table.insert(CArr,CList[i])
+	end
+end
+
+CS_PrintBMPGraph(CS_OverlapX(table.unpack(SCHALE)),CArr,{{-10},{10}},{{-5},{5}},1,100,25,{0x00FFC0,0x80FFE0,0xC4FFF0},3)

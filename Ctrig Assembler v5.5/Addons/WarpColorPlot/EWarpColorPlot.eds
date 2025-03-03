@@ -1,0 +1,10 @@
+[main]
+input: WarpColorPlot.scx
+output: EWarpColorPlotT.scx
+
+[STRCtrig Assembler v5.5]
+Path : J:\영밀돕eps\euddraft0.9.10.12\Ctemp\
+[Debug]
+
+[freeze]
+freeze: 0
