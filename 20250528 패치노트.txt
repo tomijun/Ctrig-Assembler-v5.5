@@ -1,0 +1,55 @@
+2025/05/28 패치노트
+- CtrigAsm v5.5.py P2~P8로 시작시 튕기는 버그 수정
+- math.random() 관련 버그 수정
+- CS_Slice 및 CSPathInPath(X) 함수 추가
+- NDeque 및 WarpQueue 함수 추가
+
+2024/03/18 패치노트
+- StartCtrig STRx인자 자동적용으로 변경, IncludeSTRx 인자 추가
+- CtrigAsm 5.5 업데이트 (STRCtrig모드시 TRIG <-> STRx 단락 모두 지원)
+- STRx 단락 접근용 함수 6개 추가 (설명서 1장에 추가됨)
+- Tep 3.0, .py를 CtrigAsm 5.5버젼에 맞게 업데이트
+
+2024/03/13 패치노트
+- CA__ItoName FullWidth 오류 수정
+- CAdd, CSub, CiSub -> (Operand 가 없는 경우) Dest "A" 타입 삭제, "VA" 버그 수정
+- CMul, CDiv, CiDiv, CMod, CiMod, ClShift, CAnd, COr, CXor, 
+   CrShift, ClShift2, CXor2, CNeg2, CNot2, CEPD -> (Operand 가 없는 경우) Dest "VA" 버그 수정
+
+2024/02/01 패치노트
+- CreateUnitShape.lua 오류 수정
+- LabelUseCheck 함수 추가 (ErrorCheck에 포함, 미선언 Label 사용시 오류 띄움)
+
+2023/08/02 패치노트
+
+Tep 3.0 호환패치 (0.07 베이스)
+: Tep 내장함수 추가, STRCtrig 및 Loader2, 2X모드 병합
+인코딩 타입을 scmdraft 신버젼(2020이상)에 맞게 변경 (utf8)
+lua 5.2 -> 5.4.6으로 변경
+
+※ 이번 버전부터 표준 설치 환경을 Scmdraft 신버젼 + Tep 3.0으로 고정함
+(로더의 경우 Tep 3.0 내장 컴파일 모드를 사용하는것으로 통일) 
+
+DisplayExtText, PatchCRGB Tep 3.0에서 사용불가
+CAPrint 함수 입력 스트링 타입을 utf8로 간주함
+단락별 인코딩 형식 :
+CA(Strx), C13(에러줄), CD(DisplayText), CS(displayText로 대체 가능) : utf8
+CB(TBL) : cp949
+
+lua 5.4.6에 맞게 I64 호환패치 (8바이트 숫자 입력시 I64(숫자)로 써야함)
+__printbmp.lua 병합
+CSMakePath류 함수 추가
+CSMakeCStar 추가
+어셈블러 임시파일 생성 경로를 temp 폴더 내부로 변경
+CS_CropMask 추가 및 FillMask류 함수 추가 
+CS_CheckPathX 추가
+V, W, Vi 등 함수에서 Next 안넣으면 nil 되는 문제 수정 (0으로 변경)
+
+CS_Photo 1.0 -> 1.1
+CS_STRConverter 1.1 추가
+Tep 3.0 추가
+
+2023/08/12 패치노트
+
+NSQC 버젼을 0999에 재빌드 (APMCounter 호환)
+
